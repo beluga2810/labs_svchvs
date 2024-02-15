@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Молочный комбинат</title>
+</head>
+
+<body>
+  <h1>Молочный комбинат</h1>
+  <button onclick="getPersonel()">Получить данные(GET)</button>
+  <button onclick="fetchPersonelDataPost()">Получить данные(POST)</button>
+  <button onclick="addPersonel()">Добавить сотрудника(POST)</button>
+  <div>
+    <h5></h5>
+    <div>
+      <button onClick="downloadFile('json')">Скачать в JSON</button>
+      <button onClick="downloadFile('xml')">Скачать в XML</button>
+      <button onClick="downloadFile('html')">Скачать в HTML</button>
+    </div>
+  </div>
+  <ul id="dataList"></ul>
+
+  <script>
+
+    async function getPersonel() {
+      try {
+        const response = await fetch('http://localhost:3000/api/personel');
+        if (response.ok) {
+          const data = await response.json();
+
+          const doctorList = document.getElementById('dataList');
+          doctorList.innerHTML = '';
+
+          data.forEach((specialty) => {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = `
+          <strong>${specialty.name}</strong>
+          <ul>
+            ${specialty.members.map(member => `
+              <li>
+                <strong>${member.name}</strong> - ${member.experience}, Контакт: ${member.contact}
+              </li>
+            `).join('')}
+          </ul>
+          <ul>
+            ${specialty.schedule.map(schedule => `
+              <li>
+                Дата: ${schedule.date}, Время: ${schedule.time}, Кабинет: ${schedule.room}
+              </li>
+            `).join('')}
+          </ul>
+        `;
+            doctorList.appendChild(listItem);
+          });
+        } else {
+          throw new Error('Ошибка при выполнении запроса.');
+        }
+      } catch (error) {
+        console.error('Ошибка при выполнении запроса:', error);
+      }
+    }
+
+    async function fetchPersonelDataPost() {
+      try {
+        const response = await fetch("http://localhost:3000/api/personel", {
+          method: "POST",
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+
+          const doctorList = document.getElementById("dataList");
+          doctorList.innerHTML = "";
+
+          data.forEach((specialty) => {
+            specialty.members.forEach((member) => {
+              const listItem = document.createElement("li");
+              listItem.textContent = `${member.name}, ${member.contact}, ${member.experience}`;
+              doctorList.appendChild(listItem);
+            });
+          });
+        } else {
+          throw new Error('Ошибка при выполнении запроса.');
+        }
+      } catch (error) {
+        console.error('Ошибка при выполнении запроса:', error);
+      }
+    }
+
+    const downloadFile = async (format) => {
+      try {
+        let acceptHeader = '';
+
+        if (format === 'html') {
+          acceptHeader = 'text/html';
+        } else {
+          acceptHeader = `application/${format}`;
+        }
+
+        const response = await fetch('http://localhost:3000/api/formattedData', {
+          headers: {
+            Accept: acceptHeader,
+          },
+        });
+
+        const content = await response.text();
+        const fileName = `data.${format.toLowerCase()}`;
+        const contentType = acceptHeader;
+
+        const blob = new Blob([content], { type: contentType });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = fileName;
+        link.click();
+      } catch (error) {
+        console.error(`Error downloading ${format}:`, error.message);
+      }
+    };
+
+    async function addPersonel() {
+      const newMember = {
+        "name": "New Member",
+        "contact": "+123456789",
+        "experience": "5 years"
+      };
+      const apiUrl = 'http://localhost:3000/addPersonel';
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newMember),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Error: ${errorData.error}`);
+        }
+
+        const result = await response.json();
+        console.log(result);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+  </script>
+</body>
+
+</html>

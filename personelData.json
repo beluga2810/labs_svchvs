@@ -1,0 +1,91 @@
+[
+  {
+    "id": 1,
+    "name": "Инженер",
+    "members": [
+      {
+        "id": 1,
+        "name": "Елена Дроздова",
+        "contact": "+1487488514",
+        "experience": "15 лет"
+      },
+      {
+        "id": 2,
+        "name": "Николай Кириллов",
+        "contact": "+9849484748",
+        "experience": "10 лет"
+      },
+      {
+        "name": "New Member",
+        "contact": "+123456789",
+        "experience": "5 years"
+      },
+      {
+        "name": "New Member",
+        "contact": "+123456789",
+        "experience": "5 years"
+      },
+      {
+        "name": "New Member",
+        "contact": "+123456789",
+        "experience": "5 years"
+      },
+      {
+        "name": "New Member",
+        "contact": "+123456789",
+        "experience": "5 years"
+      },
+      {
+        "name": "New Member",
+        "contact": "+123456789",
+        "experience": "5 years"
+      }
+    ],
+    "schedule": [
+      {
+        "id": "101",
+        "date": "2023-10-10",
+        "time": "09:00",
+        "room": "Кабинет 2"
+      },
+      {
+        "id": "102",
+        "date": "2023-10-10",
+        "time": "11:00",
+        "room": "Кабинет 2"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Технолог",
+    "members": [
+      {
+        "id": 3,
+        "name": "Андрей Смирнов",
+        "contact": "+418487455154",
+        "experience": "2 года"
+      },
+      {
+        "id": 4,
+        "name": "Роман Кртич",
+        "contact": "+15178791484",
+        "experience": "4 года"
+      }
+    ],
+    "schedule": [
+      {
+        "id": "103",
+        "date": "2023-10-10",
+        "time": "10:00",
+        "room": "Кабинет 3"
+      },
+      {
+        "id": "104",
+        "date": "2023-10-10",
+        "time": "13:00",
+        "room": "Кабинет 3"
+      }
+    ]
+  }
+]
