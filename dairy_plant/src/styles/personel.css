@@ -1,0 +1,10 @@
+.doctors_page-container{
+    margin-top: 2rem;
+}
+
+
+@media screen and (max-width:930px){
+    .doctors_page-container{
+        padding: 0 2rem;
+    }
+}
