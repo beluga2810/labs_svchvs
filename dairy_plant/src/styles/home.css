@@ -1,0 +1,22 @@
+.features{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 0 5rem;
+}
+.features h2{
+    font-size: 1.5rem;
+    color: rgb(250, 249, 249);
+    margin-bottom: 1rem;
+}
+.features ul li{
+    color: rgb(241, 238, 238);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+@media screen and (max-width:810px){
+    .features ul li{
+        font-size: 0.9rem;
+    }
+}
